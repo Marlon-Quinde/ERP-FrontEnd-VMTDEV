@@ -10,12 +10,14 @@ import {MatIconModule} from '@angular/material/icon';;
 import { MatInputModule } from '@angular/material/input'
 
 import { EnumKeys } from '../../../shared/enums/keys';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-form-login',
   imports: [
     ReactiveFormsModule,
     CommonModule,
+    RouterLink,
     // ? Angular Material
     MatButtonModule,
     MatFormFieldModule,

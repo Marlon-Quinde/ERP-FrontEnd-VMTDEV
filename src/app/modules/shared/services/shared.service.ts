@@ -13,12 +13,19 @@ export class SharedService {
     if (!errors) return '';
     const name: string = label ?? controlName
 
+
     for (const key in errors) {
       switch (key) {
         case EnumErrors.REQUIRED:
           return `El campo ${name} es requerido`;
         case EnumErrors.EMAIL:
           return `El campo ${name} no es un correo válido.`;
+        case EnumErrors.MISMATCH:
+          return `Las ${name} no son iguales.`
+        case EnumErrors.MINLENGTH:
+          return `El campo ${name} debe ser mayor a ${errors[key].requiredLength} caracteres.`
+        case EnumErrors.MAXLENGTH:
+          return `El campo ${name} debe ser menor a ${errors[key].requiredLength} caracteres.`
         default:
           return `Error desconocido ${key}`;
       }
