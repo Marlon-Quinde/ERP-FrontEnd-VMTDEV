@@ -16,6 +16,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../services/auth.service';
 import { IRegister } from '../../interfaces/IRegister.interface';
+import { IFormRegister } from '../../interfaces/IFormRegister.interface';
+import { Router } from '@angular/router';
+import { URL_ROUTES } from '../../../shared/const/url-routes';
 
 @Component({
   selector: 'app-form-register',
@@ -35,8 +38,9 @@ export class FormRegister {
   // ? Injects
   private readonly _fb = inject(FormBuilder);
   private readonly _sharedService = inject(SharedService);
-  private readonly _toastr = inject(ToastrService)
-  private readonly _authService = inject(AuthService)
+  private readonly _toastr = inject(ToastrService);
+  private readonly _authService = inject(AuthService);
+  private readonly _router = inject(Router);
 
   // ? Outputs
   @Output() onFormRegister = new EventEmitter();
@@ -129,20 +133,20 @@ export class FormRegister {
       this._toastr.error('Llena todos los campos', 'Formulario Inválido')
       return
     }
-    const formValue = this._formRegister.value;
+    const formValue = this._formRegister.value as IFormRegister;
 
     const payload: IRegister = {
-      companyId: 0,
-      email: formValue.email!,
+      companyId: 1,
+      email: formValue.email,
       name: `${formValue.firstNames} ${formValue.lastNames}`,
-      password: formValue.password!
+      password: formValue.password
     };
     this._authService.register(payload).subscribe({
       next: ( res ) => {
-        console.log(res)
+        this._router.navigateByUrl(URL_ROUTES.LOGIN)
       },
       error: ( err ) => {
-        console.log(err)
+        this._router.navigateByUrl(URL_ROUTES.LOGIN)
       },
       complete: () => {
 

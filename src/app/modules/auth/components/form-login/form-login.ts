@@ -11,6 +11,8 @@ import { MatInputModule } from '@angular/material/input'
 
 import { EnumKeys } from '../../../shared/enums/keys';
 import { RouterLink } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { LocalStorageService } from '../../../shared/services/localStorage.service';
 
 @Component({
   selector: 'app-form-login',
@@ -28,9 +30,14 @@ import { RouterLink } from '@angular/router';
   styleUrl: './form-login.scss',
 })
 export class FormLogin implements OnInit {
+  public readonly hide = signal(true);
+
+  public readonly localStorage = inject(LocalStorageService)
+
   private readonly _fb = inject(FormBuilder);
   private readonly _sharedService = inject(SharedService);
-  public readonly hide = signal(true);
+  private readonly _toastr = inject(ToastrService)
+
 
   // ? Output - Comunicación Hijo - Padre
   @Output() onFormValue: EventEmitter<IFormLogin> = new EventEmitter<IFormLogin>();
@@ -43,8 +50,8 @@ export class FormLogin implements OnInit {
   });
 
   ngOnInit() {
-    if(localStorage.getItem(EnumKeys.RECUERDAME)){
-      this._formLogin.patchValue(JSON.parse(localStorage.getItem(EnumKeys.RECUERDAME)!))
+    if(this.localStorage.getItem(EnumKeys.RECUERDAME)){
+      this._formLogin.patchValue(this.localStorage.getItem<IFormLogin>(EnumKeys.RECUERDAME)!)
     }
   }
 
@@ -63,12 +70,10 @@ export class FormLogin implements OnInit {
   }
 
   onLogin() {
-    if (this._formLogin.invalid) return;
-    if(this._formLogin.get('rememberme')?.value && !localStorage.getItem(EnumKeys.RECUERDAME)){
-      localStorage.setItem(EnumKeys.RECUERDAME, JSON.stringify(this._formLogin.value))
-    } else if(!this._formLogin.get('rememberme')?.value && localStorage.getItem(EnumKeys.RECUERDAME)){
-      localStorage.removeItem(EnumKeys.RECUERDAME)
-    }
+    if (this._formLogin.invalid) {
+      this._toastr.error('Llena todos los campos', 'Formulario Inválido')
+      return
+    };
     this.onFormValue.emit(this._formLogin.value as IFormLogin);
   }
 
