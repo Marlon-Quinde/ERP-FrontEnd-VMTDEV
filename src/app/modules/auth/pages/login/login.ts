@@ -9,6 +9,7 @@ import { MessageService } from 'primeng/api';
 import { Router, RouterLink } from '@angular/router';
 import { EnumKeys } from '../../../shared/enums/keys';
 import { LocalStorageService } from '../../../shared/services/localStorage.service';
+import { URL_ROUTES } from '../../../shared/const/url-routes';
 
 @Component({
   selector: 'app-login',
@@ -39,9 +40,9 @@ export class Login {
             this.localStorage.removeItem(EnumKeys.RECUERDAME)
           }
 
-          localStorage.setItem(EnumKeys.JWT, res.data?.jwt!)
           this.localStorage.setItem(EnumKeys.JWT, res.data?.jwt)
           this._toastr.success(res.message, 'Transacción Exítosa');
+          this._router.navigateByUrl(URL_ROUTES.DASHBOARD);
         } else {
           this._toastr.error(res.message, 'Ocurrio un problema, vuelve a intentar.');
         }
