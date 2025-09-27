@@ -3,6 +3,7 @@ const config: Config = {
   content: [
     './src/**/*.{html,ts}',
   ],
+  important: true,
   theme: {
     extend: {},
   },
