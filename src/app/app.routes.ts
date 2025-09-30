@@ -14,12 +14,16 @@ export const routes: Routes = [
     loadComponent: () => import('./modules/layout/pages/main/main').then( c => c.Main),
     children: [
       {
-        path: '',
+        path: 'home',
         loadChildren: () => import('./modules/home/home.routes').then( r => r.routes),
       },
       {
+        path: 'movie',
+        loadChildren: () => import('./modules/movie/movie.routes').then( r => r.routes)
+      },
+      {
         path: '',
-        redirectTo: '',
+        redirectTo: 'home',
         pathMatch: 'full'
       }
     ]
