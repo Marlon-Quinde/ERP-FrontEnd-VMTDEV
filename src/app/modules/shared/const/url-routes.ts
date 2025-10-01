@@ -12,6 +12,7 @@ export const URL_ROUTES = {
   CHANGE_PASSWORD: `${AUTH}/change-password`,
 
   // ? Rutas administrativas
-  DASHBOARD: `${ADMIN}${HOME}/dashboard`
+  DASHBOARD: `${ADMIN}${HOME}/dashboard`,
+  NOW_PLAYING: `${ADMIN}${MOVIE}/now-playing`
 
 }

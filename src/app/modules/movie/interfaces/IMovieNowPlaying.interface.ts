@@ -1,7 +1,7 @@
-export interface IMovieNowPlaying {
+export interface IMoviesNowPlaying {
     dates:         Dates;
     page:          number;
-    results:       Result[];
+    results:       IMovie[];
     total_pages:   number;
     total_results: number;
 }
@@ -11,7 +11,7 @@ export interface Dates {
     minimum: Date;
 }
 
-export interface Result {
+export interface IMovie {
     adult:             boolean;
     backdrop_path:     string;
     genre_ids:         number[];

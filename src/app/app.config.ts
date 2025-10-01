@@ -2,7 +2,7 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChang
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 
 // ? Toastr
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -12,13 +12,17 @@ import { provideToastr } from 'ngx-toastr';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
+import { apiVMTDEVInterceptor } from './modules/shared/interceptors/apiVMTDEV.interceptor';
+import { apiTMDBInterceptor } from './modules/shared/interceptors/apiTMDB.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(
+      withInterceptors([apiVMTDEVInterceptor, apiTMDBInterceptor])
+    ),
     provideAnimations(),
     provideToastr(),
     provideAnimationsAsync(),

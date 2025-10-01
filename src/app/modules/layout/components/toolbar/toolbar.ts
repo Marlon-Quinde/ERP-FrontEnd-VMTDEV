@@ -17,7 +17,6 @@ import { Ripple } from 'primeng/ripple';
 export class Toolbar {
 
   @Input() items: MenuItem[] | undefined;
-
   ngOnInit() {
 
   }
