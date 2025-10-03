@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { MovieService } from '../../services/movie.service';
-import { IMovie } from '../../interfaces/IMovieNowPlaying.interface';
+import { IMovieNowPlaying } from '../../interfaces/INowPlaying.interface';
 import { MovieCard } from '../../components/movie-card/movie-card';
 import { CommonModule } from '@angular/common';
 
@@ -14,7 +14,7 @@ export class NowPlaying implements OnInit {
 
   private readonly _movieServices = inject(MovieService)
 
-  public movies = signal<IMovie[]>([])
+  public movies = signal<IMovieNowPlaying[]>([])
 
   ngOnInit(): void {
     this._movieServices

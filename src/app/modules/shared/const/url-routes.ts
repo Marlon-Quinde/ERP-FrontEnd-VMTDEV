@@ -13,6 +13,8 @@ export const URL_ROUTES = {
 
   // ? Rutas administrativas
   DASHBOARD: `${ADMIN}${HOME}/dashboard`,
+  MOVIE: `${ADMIN}${MOVIE}`,
+  DETAIL: `${ADMIN}${MOVIE}/detail`,
   NOW_PLAYING: `${ADMIN}${MOVIE}/now-playing`
 
 }
