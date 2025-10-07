@@ -1,0 +1,8 @@
+<div class="card">
+    <p-carousel [value]="data" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
+        <ng-template let-value #item>
+            <!-- ? Component del Carousel  -->
+            <app-movie-card [movie]="value" />
+        </ng-template>
+    </p-carousel>
+</div>

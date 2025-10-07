@@ -1,7 +1,7 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, Input, ViewChild } from '@angular/core';
 import { IMovieNowPlaying } from '../../interfaces/INowPlaying.interface';
 import { environments } from '../../../../environments/environments';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { URL_ROUTES } from '../../../shared/const/url-routes';
 
 @Component({
@@ -10,15 +10,14 @@ import { URL_ROUTES } from '../../../shared/const/url-routes';
   templateUrl: './movie-card.html',
   styleUrl: './movie-card.scss'
 })
-export class MovieCard implements OnInit, AfterViewInit{
+export class MovieCard implements AfterViewInit{
 
   @ViewChild('movieCard') movieCard?: ElementRef<HTMLDivElement>
 
   @Input({ required: true}) movie!: IMovieNowPlaying
+  @Input() masInfo?: boolean = false
 
-
-  ngOnInit(): void {
-  }
+  private readonly _router = inject(Router)
 
   ngAfterViewInit(){
     if(this.movieCard){
@@ -30,5 +29,13 @@ export class MovieCard implements OnInit, AfterViewInit{
 
   get baseUrl(){
     return URL_ROUTES.DETAIL
+  }
+
+  onClick(){
+    if(this.masInfo) return;
+    this._router.navigate([URL_ROUTES.DETAIL, this.movie.id])
+    setTimeout(() => {
+      location.reload();
+    }, 300);
   }
 }

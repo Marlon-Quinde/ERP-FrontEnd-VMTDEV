@@ -1,3 +1,5 @@
-<div #movieCard class="card">
-  <button [routerLink]="[baseUrl, movie.id]" class="card-button">Mas info</button>
+<div (click)="onClick()" #movieCard class="card">
+  @if (masInfo) {
+    <button [routerLink]="[baseUrl, movie.id]" class="card-button">Mas info</button>
+  }
 </div>
