@@ -8,6 +8,7 @@ import { Chip } from 'primeng/chip';
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { CustomCarousel } from '../../../shared/components/custom-carousel/custom-carousel';
 import { IMovieSimilar } from '../../interfaces/ISimilar.interface';
+import { Cast } from '../../interfaces/ICredits.interface';
 
 @Component({
   selector: 'app-movie-detail',
@@ -23,6 +24,8 @@ export class MovieDetail implements OnInit {
 
   public movie = signal<IMovieDetail>({} as IMovieDetail)
   public moviesSimilar = signal<IMovieSimilar[]>([])
+  public cast = signal<Cast[]>([]);
+  public crew = signal<Cast[]>([]);
 
   public responsiveOptionsMoviesSimilar = [
         {
@@ -47,19 +50,58 @@ export class MovieDetail implements OnInit {
         },
       ]
 
+    public responsiveOptionsCast = [
+        {
+          breakpoint: '1400px',
+          numVisible: 7,
+          numScroll: 1,
+        },
+        {
+          breakpoint: '1199px',
+          numVisible: 5,
+          numScroll: 1,
+        },
+        {
+          breakpoint: '900px',
+          numVisible: 4,
+          numScroll: 1,
+        },
+        {
+          breakpoint: '767px',
+          numVisible: 3,
+          numScroll: 1,
+        },
+        {
+          breakpoint: '575px',
+          numVisible: 1,
+          numScroll: 1,
+        },
+      ]
+
   ngOnInit(){
-    const idMovie = this._router.snapshot.paramMap.get('id')
+    let idMovie: string | number | null = this._router.snapshot.paramMap.get('id')
     const onlyNumers: RegExp = /^[0-9]*$/
     if(!idMovie || !onlyNumers.test(idMovie)) {
       this._route.navigateByUrl(URL_ROUTES.MOVIE+'/error')
       return
     }
-    this._movieService.getMovieDetail(Number(idMovie)).subscribe({
+    idMovie = Number(idMovie)
+    this._movieService.getMovieDetail(idMovie).subscribe({
       next: (movieDetail) => {
         this.movie?.set(movieDetail)
-        this._movieService.getSimilar(Number(idMovie)).subscribe({
+
+        // ? Peliculas Similares
+        this._movieService.getSimilar(idMovie).subscribe({
           next: ( moviesSimilar ) => {
             this.moviesSimilar.set(moviesSimilar.results)
+          }
+        })
+
+        // ? Creditos
+        this._movieService.getCredits(idMovie).subscribe({
+          next: (credits) => {
+            this.cast.set(credits.cast)
+            this.crew.set(credits.crew)
           }
         })
       }

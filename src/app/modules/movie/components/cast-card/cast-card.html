@@ -1,0 +1,17 @@
+<div
+  class="tw:max-w-[160px] tw:bg-white/5 tw:backdrop-blur-sm tw:border tw:border-white/10 tw:rounded-2xl tw:p-4 tw:text-center tw:flex-none tw:group hover:tw:bg-white/10 tw:transition-all tw:duration-200"
+>
+  <div class="tw:relative tw:mb-4">
+      <img
+        [src]="cast.profile_path ? baseUrl+cast.profile_path : 'assets/images/unknown-person.png'"
+        alt="Actor 1"
+        class="tw:w-20 tw:h-20 tw:rounded-full tw:mx-auto tw:object-cover tw:border-2 tw:border-white/20"
+      />
+    <div
+      class="tw:absolute tw:-bottom-2 tw:left-1/2 tw:transform tw:-translate-x-1/2 tw:bg-gradient-to-r tw:from-blue-500 tw:to-purple-500 tw:text-white tw:text-xs tw:px-2 tw:py-1 tw:rounded-full tw:font-semibold"
+    >
+      {{cast.known_for_department}}
+    </div>
+  </div>
+  <div class="tw:text-sm tw:font-semibold tw:text-white">{{cast.name}}</div>
+</div>

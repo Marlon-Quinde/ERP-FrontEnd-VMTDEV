@@ -86,7 +86,7 @@
             >
               {{ movie().title }}
               <span class="tw:text-gray-400 tw:text-2xl tw:font-light tw:block tw:mt-2"
-                >({{ movie().release_date | date:'yyyy' }})</span
+                >({{ movie().release_date | date : 'yyyy' }})</span
               >
             </h1>
             <div class="tw:flex tw:flex-wrap tw:items-center tw:gap-4 tw:mt-4 tw:text-gray-300">
@@ -100,7 +100,7 @@
                     d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.966a1 1 0 00.95.69h4.18c.969 0 1.371 1.24.588 1.81l-3.388 2.46a1 1 0 00-.364 1.118l1.287 3.966c.3.92-.755 1.688-1.54 1.118l-3.388-2.46a1 1 0 00-1.176 0l-3.388 2.46c-.784.57-1.84-.197-1.54-1.118l1.287-3.966a1 1 0 00-.364-1.118L2.045 9.393c-.783-.57-.38-1.81.588-1.81h4.18a1 1 0 00.95-.69L9.05 2.927z"
                   />
                 </svg>
-                <span class="tw:font-semibold">{{ movie().vote_average | number: '1.1-2' }}</span>
+                <span class="tw:font-semibold">{{ movie().vote_average | number : '1.1-2' }}</span>
                 <span class="tw:text-sm tw:text-gray-400">IMDb</span>
               </span>
               <span>•</span>
@@ -109,7 +109,12 @@
                 <span class="tw:text-white tw:font-medium">Nombre del Director</span></span
               >
               <span>•</span>
-              <span>Duración: <span class="tw:text-white tw:font-medium"> {{ movie().revenue | date:'h:mm'}} </span></span>
+              <span
+                >Duración:
+                <span class="tw:text-white tw:font-medium">
+                  {{ movie().revenue | date : 'h:mm' }}
+                </span></span
+              >
             </div>
           </div>
 
@@ -244,66 +249,21 @@
         </article>
 
         <!-- Reparto principal -->
+        @if(cast().length){
         <section class="tw:space-y-6">
           <h3
             class="tw:text-2xl tw:font-bold tw:bg-gradient-to-r tw:from-white tw:to-gray-300 tw:bg-clip-text tw:text-transparent"
           >
             Reparto principal
           </h3>
-          <div class="tw:flex tw:overflow-x-auto tw:gap-6 tw:pb-4 tw:scrollbar-hide">
-            <div
-              class="tw:min-w-[160px] tw:bg-white/5 tw:backdrop-blur-sm tw:border tw:border-white/10 tw:rounded-2xl tw:p-4 tw:text-center tw:flex-none tw:group hover:tw:bg-white/10 tw:transition-all tw:duration-200"
-            >
-              <div class="tw:relative tw:mb-4">
-                <img
-                  src="https://via.placeholder.com/120x120.png?text=Actor+1"
-                  alt="Actor 1"
-                  class="tw:w-20 tw:h-20 tw:rounded-full tw:mx-auto tw:object-cover tw:border-2 tw:border-white/20"
-                />
-                <div
-                  class="tw:absolute tw:-bottom-2 tw:left-1/2 tw:transform tw:-translate-x-1/2 tw:bg-gradient-to-r tw:from-blue-500 tw:to-purple-500 tw:text-white tw:text-xs tw:px-2 tw:py-1 tw:rounded-full tw:font-semibold"
-                >
-                  Protagonista
-                </div>
-              </div>
-              <div class="tw:text-sm tw:font-semibold tw:text-white">Actor 1</div>
-            </div>
-            <div
-              class="tw:min-w-[160px] tw:bg-white/5 tw:backdrop-blur-sm tw:border tw:border-white/10 tw:rounded-2xl tw:p-4 tw:text-center tw:flex-none tw:group hover:tw:bg-white/10 tw:transition-all tw:duration-200"
-            >
-              <div class="tw:relative tw:mb-4">
-                <img
-                  src="https://via.placeholder.com/120x120.png?text=Actor+2"
-                  alt="Actor 2"
-                  class="tw:w-20 tw:h-20 tw:rounded-full tw:mx-auto tw:object-cover tw:border-2 tw:border-white/20"
-                />
-                <div
-                  class="tw:absolute tw:-bottom-2 tw:left-1/2 tw:transform tw:-translate-x-1/2 tw:bg-gradient-to-r tw:from-red-500 tw:to-pink-500 tw:text-white tw:text-xs tw:px-2 tw:py-1 tw:rounded-full tw:font-semibold"
-                >
-                  Antagonista
-                </div>
-              </div>
-              <div class="tw:text-sm tw:font-semibold tw:text-white">Actor 2</div>
-            </div>
-            <div
-              class="tw:min-w-[160px] tw:bg-white/5 tw:backdrop-blur-sm tw:border tw:border-white/10 tw:rounded-2xl tw:p-4 tw:text-center tw:flex-none tw:group hover:tw:bg-white/10 tw:transition-all tw:duration-200"
-            >
-              <div class="tw:relative tw:mb-4">
-                <img
-                  src="https://via.placeholder.com/120x120.png?text=Actor+3"
-                  alt="Actor 3"
-                  class="tw:w-20 tw:h-20 tw:rounded-full tw:mx-auto tw:object-cover tw:border-2 tw:border-white/20"
-                />
-                <div
-                  class="tw:absolute tw:-bottom-2 tw:left-1/2 tw:transform tw:-translate-x-1/2 tw:bg-gradient-to-r tw:from-green-500 tw:to-teal-500 tw:text-white tw:text-xs tw:px-2 tw:py-1 tw:rounded-full tw:font-semibold"
-                >
-                  Secundario
-                </div>
-              </div>
-              <div class="tw:text-sm tw:font-semibold tw:text-white">Actor 3</div>
-            </div>
-          </div>
+          <!-- TODO: Carousel de Peliculas -->
+          <app-custom-carousel
+            [data]="cast()"
+            [responsiveOptions]="responsiveOptionsCast"
+            customComponent="cast-card"
+          />
         </section>
+        }
 
         <!-- Acciones del usuario -->
         <section
@@ -398,9 +358,13 @@
           </h3>
 
           <!-- TODO: Carousel de Peliculas -->
-           @if(moviesSimilar().length){
-             <app-custom-carousel [data]="moviesSimilar()" [responsiveOptions]="responsiveOptionsMoviesSimilar" />
-           }
+          @if(moviesSimilar().length){
+          <app-custom-carousel
+            [data]="moviesSimilar()"
+            [responsiveOptions]="responsiveOptionsMoviesSimilar"
+            customComponent="movie-card"
+          />
+          }
         </section>
       </div>
     </div>
@@ -415,48 +379,81 @@
     <div class="tw:flex tw:flex-col tw:items-center tw:gap-6">
       <!-- Logo y título -->
       <div class="tw:flex tw:flex-col tw:items-center tw:gap-2">
-        <h3 class="tw:text-2xl tw:font-bold tw:bg-gradient-to-r tw:from-white tw:to-gray-300 tw:bg-clip-text tw:text-transparent">
+        <h3
+          class="tw:text-2xl tw:font-bold tw:bg-gradient-to-r tw:from-white tw:to-gray-300 tw:bg-clip-text tw:text-transparent"
+        >
           AppPelículas
         </h3>
-        <p class="tw:text-gray-300 tw:text-sm">
-          Tu plataforma de cine favorita
-        </p>
+        <p class="tw:text-gray-300 tw:text-sm">Tu plataforma de cine favorita</p>
       </div>
 
       <!-- Enlaces de navegación -->
       <nav class="tw:flex tw:flex-wrap tw:justify-center tw:gap-8 tw:text-sm">
-        <a href="#" class="tw:text-gray-300 hover:tw:text-white tw:transition-colors tw:duration-200">
+        <a
+          href="#"
+          class="tw:text-gray-300 hover:tw:text-white tw:transition-colors tw:duration-200"
+        >
           Inicio
         </a>
-        <a href="#" class="tw:text-gray-300 hover:tw:text-white tw:transition-colors tw:duration-200">
+        <a
+          href="#"
+          class="tw:text-gray-300 hover:tw:text-white tw:transition-colors tw:duration-200"
+        >
           Películas
         </a>
-        <a href="#" class="tw:text-gray-300 hover:tw:text-white tw:transition-colors tw:duration-200">
+        <a
+          href="#"
+          class="tw:text-gray-300 hover:tw:text-white tw:transition-colors tw:duration-200"
+        >
           Series
         </a>
-        <a href="#" class="tw:text-gray-300 hover:tw:text-white tw:transition-colors tw:duration-200">
+        <a
+          href="#"
+          class="tw:text-gray-300 hover:tw:text-white tw:transition-colors tw:duration-200"
+        >
           Favoritos
         </a>
-        <a href="#" class="tw:text-gray-300 hover:tw:text-white tw:transition-colors tw:duration-200">
+        <a
+          href="#"
+          class="tw:text-gray-300 hover:tw:text-white tw:transition-colors tw:duration-200"
+        >
           Contacto
         </a>
       </nav>
 
       <!-- Redes sociales -->
       <div class="tw:flex tw:gap-6">
-        <a href="#" class="tw:text-gray-400 hover:tw:text-white tw:transition-colors tw:duration-200" aria-label="Twitter">
+        <a
+          href="#"
+          class="tw:text-gray-400 hover:tw:text-white tw:transition-colors tw:duration-200"
+          aria-label="Twitter"
+        >
           <svg class="tw:h-6 tw:w-6" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M22.46 6c-.77.35-1.6.58-2.47.69a4.3 4.3 0 0 0 1.88-2.37 8.59 8.59 0 0 1-2.72 1.04A4.28 4.28 0 0 0 16.11 4c-2.37 0-4.29 1.92-4.29 4.29 0 .34.04.67.11.99C7.69 9.13 4.07 7.3 1.64 4.6c-.37.64-.58 1.39-.58 2.19 0 1.51.77 2.84 1.95 3.62a4.28 4.28 0 0 1-1.94-.54v.05c0 2.11 1.5 3.87 3.5 4.27-.36.1-.74.16-1.13.16-.28 0-.54-.03-.8-.08.54 1.7 2.12 2.94 3.99 2.97A8.6 8.6 0 0 1 2 19.54a12.13 12.13 0 0 0 6.56 1.92c7.88 0 12.2-6.53 12.2-12.2 0-.19 0-.37-.01-.56A8.7 8.7 0 0 0 24 4.59a8.48 8.48 0 0 1-2.54.7z"/>
+            <path
+              d="M22.46 6c-.77.35-1.6.58-2.47.69a4.3 4.3 0 0 0 1.88-2.37 8.59 8.59 0 0 1-2.72 1.04A4.28 4.28 0 0 0 16.11 4c-2.37 0-4.29 1.92-4.29 4.29 0 .34.04.67.11.99C7.69 9.13 4.07 7.3 1.64 4.6c-.37.64-.58 1.39-.58 2.19 0 1.51.77 2.84 1.95 3.62a4.28 4.28 0 0 1-1.94-.54v.05c0 2.11 1.5 3.87 3.5 4.27-.36.1-.74.16-1.13.16-.28 0-.54-.03-.8-.08.54 1.7 2.12 2.94 3.99 2.97A8.6 8.6 0 0 1 2 19.54a12.13 12.13 0 0 0 6.56 1.92c7.88 0 12.2-6.53 12.2-12.2 0-.19 0-.37-.01-.56A8.7 8.7 0 0 0 24 4.59a8.48 8.48 0 0 1-2.54.7z"
+            />
           </svg>
         </a>
-        <a href="#" class="tw:text-gray-400 hover:tw:text-white tw:transition-colors tw:duration-200" aria-label="Facebook">
+        <a
+          href="#"
+          class="tw:text-gray-400 hover:tw:text-white tw:transition-colors tw:duration-200"
+          aria-label="Facebook"
+        >
           <svg class="tw:h-6 tw:w-6" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M22.675 0h-21.35C.595 0 0 .592 0 1.326v21.348C0 23.408.595 24 1.325 24h11.495v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.797.143v3.24l-1.918.001c-1.504 0-1.797.715-1.797 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116C23.406 24 24 23.408 24 22.674V1.326C24 .592 23.406 0 22.675 0"/>
+            <path
+              d="M22.675 0h-21.35C.595 0 0 .592 0 1.326v21.348C0 23.408.595 24 1.325 24h11.495v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.797.143v3.24l-1.918.001c-1.504 0-1.797.715-1.797 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116C23.406 24 24 23.408 24 22.674V1.326C24 .592 23.406 0 22.675 0"
+            />
           </svg>
         </a>
-        <a href="#" class="tw:text-gray-400 hover:tw:text-white tw:transition-colors tw:duration-200" aria-label="Instagram">
+        <a
+          href="#"
+          class="tw:text-gray-400 hover:tw:text-white tw:transition-colors tw:duration-200"
+          aria-label="Instagram"
+        >
           <svg class="tw:h-6 tw:w-6" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.308.974.974 1.246 2.242 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.308 3.608-.974.974-2.242 1.246-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.334-3.608-1.308-.974-.974-1.246-2.242-1.308-3.608C2.175 15.647 2.163 15.267 2.163 12s.012-3.584.07-4.85c.062-1.366.334-2.633 1.308-3.608.974-.974 2.242-1.246 3.608-1.308C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.332.013 7.052.072 5.775.13 4.602.402 3.635 1.37 2.668 2.338 2.396 3.511 2.338 4.788.013 8.332 0 8.741 0 12c0 3.259.013 3.668.072 4.948.058 1.277.33 2.45 1.297 3.418.967.967 2.14 1.239 3.418 1.297C8.332 23.987 8.741 24 12 24c3.259 0 3.668-.013 4.948-.072 1.277-.058 2.45-.33 3.418-1.297.967-.967 1.239-2.14 1.297-3.418.059-1.28.072-1.689.072-4.948 0-3.259-.013-3.668-.072-4.948-.058-1.277-.33-2.45-1.297-3.418-.967-.967-2.14-1.239-3.418-1.297C15.668.013 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+            <path
+              d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.308.974.974 1.246 2.242 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.308 3.608-.974.974-2.242 1.246-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.334-3.608-1.308-.974-.974-1.246-2.242-1.308-3.608C2.175 15.647 2.163 15.267 2.163 12s.012-3.584.07-4.85c.062-1.366.334-2.633 1.308-3.608.974-.974 2.242-1.246 3.608-1.308C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.332.013 7.052.072 5.775.13 4.602.402 3.635 1.37 2.668 2.338 2.396 3.511 2.338 4.788.013 8.332 0 8.741 0 12c0 3.259.013 3.668.072 4.948.058 1.277.33 2.45 1.297 3.418.967.967 2.14 1.239 3.418 1.297C8.332 23.987 8.741 24 12 24c3.259 0 3.668-.013 4.948-.072 1.277-.058 2.45-.33 3.418-1.297.967-.967 1.239-2.14 1.297-3.418.059-1.28.072-1.689.072-4.948 0-3.259-.013-3.668-.072-4.948-.058-1.277-.33-2.45-1.297-3.418-.967-.967-2.14-1.239-3.418-1.297C15.668.013 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"
+            />
           </svg>
         </a>
       </div>

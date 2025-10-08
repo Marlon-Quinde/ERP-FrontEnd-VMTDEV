@@ -1,17 +1,26 @@
 import { Component, Input } from '@angular/core';
 import { CarouselModule } from 'primeng/carousel';
 import { MovieCard } from '../../../movie/components/movie-card/movie-card';
+import { CastCard } from '../../../movie/components/cast-card/cast-card';
 
+interface ResposiveOptions {
+  breakpoint: string;
+  numVisible: number;
+  numScroll: number;
+}
+type CustomComponent = 'movie-card' | 'cast-card'
 @Component({
   selector: 'app-custom-carousel',
-  imports: [CarouselModule, MovieCard],
+  imports: [CarouselModule, MovieCard, CastCard],
   templateUrl: './custom-carousel.html',
   styleUrl: './custom-carousel.scss',
 })
-export class CustomCarousel {
-  @Input({ required: true }) data: any[] = [];
+export class CustomCarousel<T> {
+  @Input({ required: true }) data: T[] = [];
+  @Input({required: true}) customComponent!: CustomComponent
+  @Input() responsiveOptions: ResposiveOptions[] | undefined;
 
-  @Input() responsiveOptions: any[] | undefined;
+
 
   ngOnInit() {
     if (!this.responsiveOptions?.length) {
