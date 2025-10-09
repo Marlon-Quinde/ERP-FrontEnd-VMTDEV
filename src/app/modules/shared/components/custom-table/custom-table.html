@@ -1,0 +1,29 @@
+<div class="card">
+    <p-table [value]="data" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template #header>
+            <tr>
+                @for (column of columns; track $index) {
+                  <th>{{column.header}}</th>
+                }
+            </tr>
+        </ng-template>
+        <ng-template #body let-item>
+            <tr>
+                @for (column of columns; track $index) {
+                  @switch (column.format) {
+                    @case ('currency') {
+                      <td>{{ item[column.field] | currency }}</td>
+                    }
+                    @case ('date') {
+                      <td>{{ item[column.field] | date:column.params }}</td>
+
+                    }
+                    @default {
+                      <td>{{ item[column.field] }}</td>
+                    }
+                  }
+                }
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

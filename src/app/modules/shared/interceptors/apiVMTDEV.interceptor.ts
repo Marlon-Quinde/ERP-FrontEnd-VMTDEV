@@ -11,7 +11,7 @@ export const apiVMTDEVInterceptor: HttpInterceptorFn = (req, next) => {
   if(token && req.url.includes(environments.baseUrl)){
     cloneReq = cloneReq.clone({
       setHeaders: {
-        "Authorization": `Bearer ${token}`
+        "Token": `${token}`
       }
     })
   }
