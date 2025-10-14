@@ -1,0 +1,13 @@
+<div class="tw:card tw:flex tw:justify-center">
+    <p-dialog [header]="isOpen().data ? 'Editar producto' : 'Guardar producto'" [modal]="true" (onHide)="isOpen.set({ isVisible: false})" [(visible)]="visible" [style]="{ width: '25rem' }">
+        <span class="p-text-secondary block mb-8">Update your information.</span>
+        <div class="tw:flex tw:items-center tw:gap-4 tw:mb-8">
+            <label for="email" class="tw:font-semibold tw:w-24">Nombre</label>
+            <input pInputText id="email" class="flex-auto" autocomplete="off" [value]="isOpen().data?.prodDescripcion" />
+        </div>
+        <div class="tw:flex tw:ustify-end tw:gap-2">
+            <p-button label="Cancel" severity="secondary" (click)="visible = false" />
+            <p-button label="Save" (click)="visible = false" />
+        </div>
+    </p-dialog>
+</div>

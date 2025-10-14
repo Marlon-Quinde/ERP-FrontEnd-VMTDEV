@@ -2,11 +2,12 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { IProduct } from '../../interfaces/IProduct.interface';
 import { CustomTable } from '../../../shared/components/custom-table/custom-table';
-import { IColumn } from '../../../shared/interfaces/ICustomTable.interface';
+import { IAccionOutput, IColumn } from '../../../shared/interfaces/ICustomTable.interface';
+import { ModalProduct } from '../../components/modal-product/modal-product';
 
 @Component({
   selector: 'app-list-products',
-  imports: [CustomTable],
+  imports: [CustomTable, ModalProduct],
   templateUrl: './list-products.html',
   styleUrl: './list-products.scss'
 })
@@ -14,6 +15,7 @@ export class ListProducts implements OnInit {
 
   private readonly _productService = inject(ProductService)
   public products = signal<IProduct[]>([])
+  public modalProduct = signal<{ isVisible: boolean, data?: IProduct }>({isVisible: false, data: undefined})
   public columns: IColumn[] = [
     {
       header: 'ID',
@@ -26,13 +28,17 @@ export class ListProducts implements OnInit {
     {
       header: 'Precio',
       field: 'prodUltPrecio',
-      format: 'currency'
+      format: {
+        type: 'currency'
+      }
     },
     {
       header: 'Fecha Creación',
       field: 'fechaHoraAct',
-      format: 'date',
-      params: 'yyyy-MM-dd'
+      format: {
+        type: 'date',
+        params: 'yyyy-MM-dd'
+      }
     }
   ]
 
@@ -42,6 +48,19 @@ export class ListProducts implements OnInit {
         this.products.set(res.data ?? [])
       }
     })
+  }
+
+  accionEvent(data: IAccionOutput<IProduct>){
+    switch (data.type) {
+      case 'editable':
+        this.modalProduct.set({
+          isVisible: true,
+          data: data.data
+        })
+        break;
+      case 'delete':
+        break
+    }
   }
 
 }

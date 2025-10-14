@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { of } from 'rxjs';
+import { last, of } from 'rxjs';
 import { URL_ROUTES } from '../../shared/const/url-routes';
 import { Router } from '@angular/router';
 
@@ -48,6 +48,18 @@ export class LayoutService {
           // },
         ],
       },
+      {
+        label: 'Administración',
+        icon: 'pi pi-search',
+        items: [
+          {
+            label: 'Productos',
+            icon: 'pi pi-search',
+            // routerLink: '/admin/product/list'
+            command: () => this._router.navigateByUrl(URL_ROUTES.PRODUCT_LIST)
+          }
+        ]
+      }
     ]);
   }
 }

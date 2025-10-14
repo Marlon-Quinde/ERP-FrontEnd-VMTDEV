@@ -4,6 +4,7 @@ const ADMIN = '/admin'
 
 const HOME = '/home';
 const MOVIE = '/movie';
+const PRODUCTO = '/product'
 
 export const URL_ROUTES = {
   // ? Rutas authenticación
@@ -15,6 +16,7 @@ export const URL_ROUTES = {
   DASHBOARD: `${ADMIN}${HOME}/dashboard`,
   MOVIE: `${ADMIN}${MOVIE}`,
   DETAIL: `${ADMIN}${MOVIE}/detail`,
-  NOW_PLAYING: `${ADMIN}${MOVIE}/now-playing`
+  NOW_PLAYING: `${ADMIN}${MOVIE}/now-playing`,
+  PRODUCT_LIST: `${ADMIN}${PRODUCTO}/list`
 
 }

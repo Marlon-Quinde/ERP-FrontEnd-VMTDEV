@@ -1,10 +1,20 @@
 export interface IColumn {
   header: string;
   field: string;
-  format?: typeFormat;
+  format?: IFormat;
+}
+
+interface IFormat {
+  type: typeFormat;
   params?: string // ! Solo funciona con la propiedad format
-  textAling?: typeTextAlign
 }
 
 type typeFormat = 'currency' | 'date'
-type typeTextAlign = 'left' | 'center' | 'rigth'
+
+
+export interface IAccionOutput<T> {
+  type: typeAccionOutput
+  data: T
+}
+
+export type typeAccionOutput = 'editable' | 'delete'

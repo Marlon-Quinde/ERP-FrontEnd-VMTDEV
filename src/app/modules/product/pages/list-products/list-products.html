@@ -1,1 +1,19 @@
-<app-custom-table [data]="products()" [columns]="columns" />
+<div class="tw:px-5">
+  <h2 class="tw:border-l-5 tw:pl-2 tw:border-[var(--p-menubar-background)]">
+    Listado de Productos
+  </h2>
+  <p>
+    Panel administrativo para el mantenimiento de los productos previamente registrados en la base
+    de datos de la empresa.
+  </p>
+</div>
+
+<app-custom-table
+  [data]="products()"
+  [columns]="columns"
+  [editable]="true"
+  [delete]="true"
+  (onAccionEmit)="accionEvent($event)"
+/>
+
+<app-modal-product [visible]="modalProduct().isVisible" [isOpen]="modalProduct" title="producto" />

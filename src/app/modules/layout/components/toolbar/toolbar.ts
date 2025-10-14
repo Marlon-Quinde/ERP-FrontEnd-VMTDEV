@@ -10,7 +10,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { Ripple } from 'primeng/ripple';
 @Component({
   selector: 'app-toolbar',
-  imports: [CommonModule, MenubarModule, BadgeModule, AvatarModule, InputTextModule, Ripple],
+  imports: [ CommonModule, MenubarModule, BadgeModule, AvatarModule, InputTextModule, Ripple],
   templateUrl: './toolbar.html',
   styleUrl: './toolbar.scss',
 })
