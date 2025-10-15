@@ -1,0 +1,35 @@
+<div class="tw:flex tw:items-center tw:gap-4 tw:mb-8">
+  <form [formGroup]="formProduct">
+    <div class="tw:grid tw:grid-cols-1 tw:md:grid-cols-2 tw:gap-4">
+      <div class="tw:flex tw:flex-col tw:gap-1">
+        <label for="nombreProducto" class="tw:font-semibold ">Nombre del Producto</label>
+        <input
+          pInputText
+          id="nombreProducto"
+          formControlName="prodDescription"
+          autocomplete="off"
+        />
+      </div>
+      <div class="tw:flex tw:flex-col tw:gap-1">
+        <label for="price" class="tw:font-semibold ">Precio por Unidad</label>
+        <input
+          pInputText
+          id="price"
+          formControlName="prodUltPrice"
+          class="flex-auto"
+          autocomplete="off"
+        />
+      </div>
+      <div class="tw:flex tw:flex-col tw:gap-1">
+        <label for="category" class="tw:font-semibold ">Categoria</label>
+        <p-select [options]="categories()" formControlName="categoryId"  optionValue="categoriaId" optionLabel="categoriaDescrip" placeholder="Selecciona tu categoria" />
+      </div>
+      <select name="" id="">
+        <option value=""></option>
+        <option value=""></option>
+        <option value=""></option>
+        <option value=""></option>
+      </select>
+    </div>
+  </form>
+</div>

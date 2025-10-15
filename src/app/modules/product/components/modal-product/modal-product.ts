@@ -1,13 +1,13 @@
 import { Component, Input, signal } from '@angular/core';
 import { Dialog } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { IAccionOutput } from '../../../shared/interfaces/ICustomTable.interface';
 import { IProduct } from '../../interfaces/IProduct.interface';
+import { FormProduct } from '../form-product/form-product';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-modal-product',
-  imports: [Dialog, ButtonModule, InputTextModule],
+  imports: [Dialog, ButtonModule, FormProduct, CommonModule],
   templateUrl: './modal-product.html',
   styleUrl: './modal-product.scss'
 })

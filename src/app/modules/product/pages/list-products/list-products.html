@@ -16,4 +16,6 @@
   (onAccionEmit)="accionEvent($event)"
 />
 
-<app-modal-product [visible]="modalProduct().isVisible" [isOpen]="modalProduct" title="producto" />
+@if (modalProduct().isVisible) {
+  <app-modal-product [visible]="modalProduct().isVisible" [isOpen]="modalProduct" />
+}
