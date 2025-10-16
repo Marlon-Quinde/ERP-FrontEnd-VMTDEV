@@ -35,17 +35,6 @@ export class LayoutService {
             icon: 'pi pi-bolt',
             command: () => this._router.navigateByUrl(URL_ROUTES.NOW_PLAYING)
           },
-          // {
-          //   label: 'ERP',
-          //   icon: 'pi pi-server',
-          // },
-          // {
-          //   separator: true,
-          // },
-          // {
-          //   label: 'CMS',
-          //   icon: 'pi pi-pencil',
-          // },
         ],
       },
       {
@@ -55,7 +44,6 @@ export class LayoutService {
           {
             label: 'Productos',
             icon: 'pi pi-search',
-            // routerLink: '/admin/product/list'
             command: () => this._router.navigateByUrl(URL_ROUTES.PRODUCT_LIST)
           }
         ]
