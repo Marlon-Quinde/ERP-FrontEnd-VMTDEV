@@ -25,6 +25,8 @@ import { SharedService } from '../../../shared/services/shared.service';
 import { ToastrService } from 'ngx-toastr';
 import { IUpdateProduct } from '../../interfaces/IUpdateProduct.interface';
 import { ProductService } from '../../services/product.service';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { OnlyNumbersDirective } from '../../../shared/directives/onlyNumbers.directive';
 
 @Component({
   selector: 'app-form-product',
@@ -36,7 +38,7 @@ import { ProductService } from '../../services/product.service';
     KeyFilterModule,
     Loader,
     ReactiveFormsModule,
-    Select,
+    Select
   ],
   templateUrl: './form-product.html',
   styleUrl: './form-product.scss',
@@ -52,6 +54,8 @@ export class FormProduct implements OnInit {
   private readonly _sharedService = inject(SharedService);
   private readonly _toastr = inject(ToastrService);
   private readonly _productService = inject(ProductService);
+
+  private _dialog = inject(DynamicDialogRef)
 
   private readonly _formProduct: FormGroup;
 
@@ -137,10 +141,21 @@ export class FormProduct implements OnInit {
         .putUpdateProduct(this.product.prodId.toString(), payload)
         .subscribe({
           next: (res) => {
-            console.log(res)
+            this._dialog.close()
           }
         });
     } else {
+      this._productService
+        .postCreateProduct(payload).subscribe({
+          next: (res) => {
+            this._dialog.close()
+          }
+        })
     }
+  }
+
+  onClose(){
+    console.log('ENtra')
+    this._dialog.close()
   }
 }

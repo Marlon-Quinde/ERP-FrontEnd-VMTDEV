@@ -1,8 +1,9 @@
-import { Component, Input, signal } from '@angular/core';
+import { Component, inject, Input, signal } from '@angular/core';
 import { Dialog } from 'primeng/dialog';
 import { IProduct } from '../../interfaces/IProduct.interface';
 import { FormProduct } from '../form-product/form-product';
 import { CommonModule } from '@angular/common';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-modal-product',
@@ -11,8 +12,13 @@ import { CommonModule } from '@angular/common';
   styleUrl: './modal-product.scss'
 })
 export class ModalProduct {
-  @Input() visible: boolean = false;
-  @Input() isOpen = signal<{ isVisible: boolean, data?: IProduct }>({isVisible: false, data: undefined});
+  public config = inject(DynamicDialogConfig)
+
+  public product = signal<IProduct | undefined>(undefined)
+
+  ngOnInit(){
+    this.product.set(this.config.data)
+  }
 
 
 

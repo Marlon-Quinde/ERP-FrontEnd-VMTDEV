@@ -1,8 +1,6 @@
-<div class="tw:card tw:flex tw:justify-center">
-    <p-dialog [header]="isOpen().data ? 'Editar producto' : 'Guardar producto'" [modal]="true" (onHide)="isOpen.set({ isVisible: false})" [(visible)]="visible">
-        <div class="tw:mb-4 pl-4">
-          <span class="p-text-secondary block mb-8">Datos del producto.</span>
-        </div>
-        <app-form-product [product]="isOpen().data" />
-    </p-dialog>
+<div class="tw:card tw:flex tw:justify-center tw:flex-col">
+  <div class="tw:mb-4 pl-4">
+    <span class="p-text-secondary block mb-8">Datos del producto.</span>
+  </div>
+  <app-form-product [product]="product()" />
 </div>

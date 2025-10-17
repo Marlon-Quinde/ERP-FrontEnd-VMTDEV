@@ -5,6 +5,7 @@ import { IApiResponse } from '../../shared/interfaces/IApiResponse.interface';
 import { IProduct } from '../interfaces/IProduct.interface';
 import { Observable } from 'rxjs';
 import { IUpdateProduct } from '../interfaces/IUpdateProduct.interface';
+import { ICreateProduct } from '../interfaces/ICreateProduct.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,12 @@ export class ProductService {
         id
       }
     })
+  }
+
+  postCreateProduct(payload: ICreateProduct){
+    const url: string = `${this._baseUrl}/Product/Crear-Productos`
+    const body = { ...payload }
+    return this._http.post(url, body )
   }
 
 

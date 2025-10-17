@@ -1,4 +1,4 @@
-<div class="tw:flex tw:flex-col tw:gap-10">
+<div class="tw:flex tw:flex-col tw:gap-5">
   <div class="tw:px-5 tw:mt-5">
     <h2 class="tw:border-l-5 tw:pl-2 tw:border-[var(--p-menubar-background)]">
       Listado de Productos
@@ -7,6 +7,10 @@
       Panel administrativo para el mantenimiento de los productos previamente registrados en la base
       de datos de la empresa.
     </p>
+  </div>
+
+  <div class="tw:flex tw: tw:justify-end tw:px-1">
+    <p-button icon="pi pi-plus" (onClick)="createProduct()" label="Nuevo" [rounded]="true" severity="success" />
   </div>
 
   <div class="tw:mx-1">
@@ -20,7 +24,7 @@
   </div>
 
 
-  @if (modalProduct().isVisible) {
+  <!-- @if (modalProduct().isVisible) {
   <app-modal-product [visible]="modalProduct().isVisible" [isOpen]="modalProduct" />
-  }
+  } -->
 </div>
