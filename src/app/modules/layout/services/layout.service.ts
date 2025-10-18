@@ -26,6 +26,18 @@ export class LayoutService {
         ]
       },
       {
+        label: 'Tienda',
+        icon: 'pi pi-home',
+        badge: '1',
+        items: [
+          {
+            label: 'Catalogo',
+            icon: 'pi pi-bolt',
+            command: () => this._router.navigateByUrl(URL_ROUTES.CATALOG)
+          }
+        ]
+      },
+      {
         label: 'Peliculas',
         icon: 'pi pi-search',
         badge: '1',
@@ -40,6 +52,7 @@ export class LayoutService {
       {
         label: 'Administración',
         icon: 'pi pi-search',
+        badge: '1',
         items: [
           {
             label: 'Productos',

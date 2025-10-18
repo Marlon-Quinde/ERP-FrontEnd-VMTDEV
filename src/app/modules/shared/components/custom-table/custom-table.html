@@ -16,32 +16,52 @@
         <ng-template #body let-item>
             <tr>
                 @for (column of columns; track $index) {
-                  @switch (column.format?.type) {
-                    @case ('currency') {
-                      <td>{{ item[column.field] | currency }}</td>
-                    }
-                    @case ('date') {
-                      <td>{{ item[column.field] | date:column.format?.params }}</td>
+                  <td>
+                    @switch (column.format?.type) {
+                      @case ('currency') {
+                        {{ ( column.operation?.typeOperate ? operationX(item[column.operation?.field!], column.operation?.field!, column.operation?.args, column.operation?.typeOperate ) : item[column.field] ) | currency }}
+                      }
+                      @case ('date') {
+                        {{ item[column.field] | date:column.format?.params }}
 
+                      }
+                      @default {
+                        {{ item[column.field] }}
+                      }
                     }
-                    @default {
-                      <td>{{ item[column.field] }}</td>
-                    }
-                  }
+                  </td>
                 }
                 @if(editable || delete){
                   <td >
                     <div class="tw:gap-4 tw:flex tw:justify-center tw:items-center">
                       @if (editable) {
-                        <span (click)="onAccionEvent('editable', item )" class="pi pi-pencil"></span>
+                        <p-button icon="pi pi-pencil" [rounded]="true" (click)="onAccionEvent('editable', item )"  severity="secondary" />
                       }
                       @if (delete) {
-                        <span (click)="onAccionEvent('delete', item )" class="pi pi-trash"></span>
+                         <p-button icon="pi pi-trash" [rounded]="true" (click)="onAccionEvent('delete', item )"  severity="secondary" />
                       }
                     </div>
                   </td>
                 }
             </tr>
         </ng-template>
+        @if (colFooter?.length) {
+          <ng-template #footer>
+             <tr>
+                 @for (col of colFooter; track $index) {
+                   <td [attr.colspan]="col.colspan" class="text-right font-bold p-3 pb-0">
+                      @switch (col.format?.type) {
+                        @case ('currency') {
+                           {{ (col.operation?.typeOperate ? operationY(col.operation?.typeOperate, col.operation?.field) : col.label) | currency }}
+                        }
+                        @default {
+                          {{ col.operation?.typeOperate ? operationY(col.operation?.typeOperate, col.operation?.field) : col.label }}
+                        }
+                      }
+                  </td>
+                 }
+             </tr>
+         </ng-template>
+        }
     </p-table>
 </div>

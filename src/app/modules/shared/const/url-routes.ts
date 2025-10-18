@@ -5,6 +5,7 @@ const ADMIN = '/admin'
 const HOME = '/home';
 const MOVIE = '/movie';
 const PRODUCTO = '/product'
+const SHOP = '/shop'
 
 export const URL_ROUTES = {
   // ? Rutas authenticación
@@ -17,6 +18,8 @@ export const URL_ROUTES = {
   MOVIE: `${ADMIN}${MOVIE}`,
   DETAIL: `${ADMIN}${MOVIE}/detail`,
   NOW_PLAYING: `${ADMIN}${MOVIE}/now-playing`,
-  PRODUCT_LIST: `${ADMIN}${PRODUCTO}/list`
+  PRODUCT_LIST: `${ADMIN}${PRODUCTO}/list`,
+  CATALOG: `${ADMIN}${SHOP}/catalog`,
+  SHOP_CART: `${ADMIN}${SHOP}/shop-cart`,
 
 }

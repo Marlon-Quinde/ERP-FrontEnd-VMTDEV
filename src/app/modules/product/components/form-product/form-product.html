@@ -1,6 +1,5 @@
 <div class="tw:flex tw:items-center tw:justify-center tw:gap-4 tw:mb-8 tw:w-full">
-  <!-- <p-toast />
-  <p-confirmdialog /> -->
+
   <form [formGroup]="formProduct">
     <div class="tw:grid tw:grid-cols-1 tw:md:grid-cols-2 tw:gap-4">
       <div class="tw:flex tw:flex-col tw:gap-1 tw:min-w-24 tw:sm:min-w-[300px]">
@@ -27,6 +26,8 @@
         <label for="category" class="tw:font-semibold">Categoria</label>
         <p-select
           [options]="categories()"
+          [virtualScroll]="true" [virtualScrollItemSize]="10"
+          [filter]="true" filterBy="categoriaDescrip" [showClear]="true"
           formControlName="categoryId"
           optionValue="categoriaId"
           optionLabel="categoriaDescrip"
@@ -37,6 +38,8 @@
         <label for="company" class="tw:font-semibold">Empresa</label>
         <p-select
           [options]="companies()"
+          [virtualScroll]="true" [virtualScrollItemSize]="10"
+          [filter]="true" filterBy="empresaNombre" [showClear]="true"
           formControlName="companyId"
           optionValue="empresaId"
           optionLabel="empresaNombre"
@@ -47,6 +50,8 @@
         <label for="supplier" class="tw:font-semibold">Proveedor</label>
         <p-select
           [options]="suppliers()"
+          [virtualScroll]="true" [virtualScrollItemSize]="10"
+          [filter]="true" filterBy="provNomComercial" [showClear]="true"
           formControlName="supplierId"
           optionValue="provId"
           optionLabel="provNomComercial"
@@ -56,6 +61,8 @@
       <div class="tw:flex tw:flex-col tw:gap-1 tw:sm:min-w-[300px]">
         <label for="supplier" class="tw:font-semibold">Marca</label>
         <p-select
+          [virtualScroll]="true" [virtualScrollItemSize]="10"
+          [filter]="true" filterBy="marcaDescrip" [showClear]="true"
           [options]="brands()"
           formControlName="brandId"
           optionValue="marcaId"

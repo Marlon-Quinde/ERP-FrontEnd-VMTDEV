@@ -26,6 +26,10 @@ export const routes: Routes = [
         loadChildren: () => import('./modules/product/product.routes').then( r => r.routes)
       },
       {
+        path: 'shop',
+        loadChildren: () => import('./modules/shop/shop.routes').then( r => r.routes)
+      },
+      {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full'

@@ -23,20 +23,25 @@ export class ProductService {
     return this._http.get<IApiResponse<IProduct[]>>(url)
   }
 
-  putUpdateProduct(id: string, payload: IUpdateProduct){
+  putUpdateProduct(id: string, payload: IUpdateProduct): Observable<IApiResponse<boolean>>{
     const url: string = `${this._baseUrl}/Product/Actualizar-Productos`
     const body = { ...payload }
-    return this._http.put(url, body, {
+    return this._http.put<IApiResponse<boolean>>(url, body, {
       params: {
         id
       }
     })
   }
 
-  postCreateProduct(payload: ICreateProduct){
+  postCreateProduct(payload: ICreateProduct): Observable<IApiResponse<string>>{
     const url: string = `${this._baseUrl}/Product/Crear-Productos`
     const body = { ...payload }
-    return this._http.post(url, body )
+    return this._http.post<IApiResponse<string>>(url, body )
+  }
+
+  deleteProduct(id: string): Observable<IApiResponse<boolean>> {
+    const url: string = `${this._baseUrl}/Product/${id}`
+    return this._http.delete<IApiResponse<boolean>>(url)
   }
 
 

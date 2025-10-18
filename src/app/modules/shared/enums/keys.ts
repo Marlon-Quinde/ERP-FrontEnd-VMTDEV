@@ -1,4 +1,5 @@
 export enum EnumKeys {
   RECUERDAME = 'RECUERDAME',
-  JWT = 'JWT'
+  JWT = 'JWT',
+  SHOPCART = 'SHOPCART'
 }

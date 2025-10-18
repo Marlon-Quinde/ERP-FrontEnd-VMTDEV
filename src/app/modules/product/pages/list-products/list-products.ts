@@ -6,24 +6,27 @@ import { IAccionOutput, IColumn } from '../../../shared/interfaces/ICustomTable.
 import { ModalProduct } from '../../components/modal-product/modal-product';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ButtonModule } from 'primeng/button';
+import { ConfirmDialog } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
+import { ToastrService } from 'ngx-toastr';
+import { IApiResponse } from '../../../shared/interfaces/IApiResponse.interface';
+import { CustomTitle } from '../../../shared/components/custom-title/custom-title';
 @Component({
   selector: 'app-list-products',
-  imports: [CustomTable, ButtonModule],
+  imports: [CustomTable, ButtonModule, ConfirmDialog, CustomTitle],
   templateUrl: './list-products.html',
   styleUrl: './list-products.scss',
-  providers: [DialogService],
+  providers: [DialogService, ConfirmationService],
 })
 export class ListProducts implements OnInit {
   private readonly _productService = inject(ProductService);
   private readonly _dialog = inject(DialogService);
+  private readonly _confirmationService = inject(ConfirmationService);
+  private readonly _toastr = inject(ToastrService);
 
   public products = signal<IProduct[]>([]);
   public ref: DynamicDialogRef<ModalProduct> | undefined;
 
-  public modalProduct = signal<{ isVisible: boolean; data?: IProduct }>({
-    isVisible: false,
-    data: undefined,
-  });
   public columns: IColumn[] = [
     {
       header: 'ID',
@@ -65,30 +68,57 @@ export class ListProducts implements OnInit {
   accionEvent(data: IAccionOutput<IProduct>) {
     switch (data.type) {
       case 'editable':
-        this.openModalProduct(data.data);
+        this.openModalProduct(data.data).onClose.subscribe((res: IApiResponse<boolean>) => {
+          this._toastr.info(res.message, 'Transacción Exítosa');
+          this.listProducts();
+        });
         break;
       case 'delete':
+        this._confirmationService.confirm({
+          message: `Desee borrar el elemento seleccionado "${data.data.prodDescripcion}"? `,
+          header: 'Esta seguro?',
+          closable: true,
+          closeOnEscape: true,
+          icon: 'pi pi-exclamation-triangle',
+          rejectButtonProps: {
+            label: 'Cancelar',
+            severity: 'secondary',
+            outlined: true,
+          },
+          acceptButtonProps: {
+            label: 'Eliminar',
+            severity: 'danger',
+          },
+          accept: () => {
+            this._productService.deleteProduct(data.data.prodId.toString()).subscribe({
+              next: (res) => {
+                this._toastr.info(res.message, 'Transacción Exítosa');
+                this.listProducts();
+              },
+            });
+          },
+        });
         break;
     }
   }
 
   createProduct() {
-    this.openModalProduct();
+    this.openModalProduct().onClose.subscribe((res: IApiResponse<string>) => {
+      this._toastr.info(res.message, 'Transacción Exítosa');
+      this.listProducts();
+    });
   }
 
   openModalProduct(data?: IProduct) {
-    this.ref = this._dialog.open(ModalProduct, {
+    return this._dialog.open(ModalProduct, {
       data,
       focusOnShow: false,
-      header: data ? 'Editar producti' : 'Nuevo producto',
+      header: data ? 'Editar producto' : 'Nuevo producto',
       maximizable: true,
-      contentStyle: { overflow: 'auto' },
+      height: '90vh',
+      contentStyle: { overflow: 'none', height: '100%' },
       modal: true,
       closable: true,
-    });
-
-    this.ref.onClose.subscribe(() => {
-      this.listProducts();
     });
   }
 }

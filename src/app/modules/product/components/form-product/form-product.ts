@@ -141,21 +141,20 @@ export class FormProduct implements OnInit {
         .putUpdateProduct(this.product.prodId.toString(), payload)
         .subscribe({
           next: (res) => {
-            this._dialog.close()
+            this._dialog.close(res)
           }
         });
     } else {
       this._productService
         .postCreateProduct(payload).subscribe({
           next: (res) => {
-            this._dialog.close()
+            this._dialog.close(res)
           }
         })
     }
   }
 
   onClose(){
-    console.log('ENtra')
     this._dialog.close()
   }
 }

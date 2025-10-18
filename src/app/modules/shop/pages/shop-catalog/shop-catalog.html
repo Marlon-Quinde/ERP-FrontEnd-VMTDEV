@@ -1,0 +1,8 @@
+<div class="tw:pt-5">
+  <app-custom-title title="Catalogo de productos" />
+  <div class="tw:flex tw:flex-wrap tw:gap-3 tw:justify-center">
+    @for (item of products(); track $index) {
+      <app-shop-card [product]="item" />
+    }
+  </div>
+</div>

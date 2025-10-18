@@ -2,6 +2,7 @@ export interface IColumn {
   header: string;
   field: string;
   format?: IFormat;
+  operation?: IOperation;
 }
 
 interface IFormat {
@@ -18,3 +19,18 @@ export interface IAccionOutput<T> {
 }
 
 export type typeAccionOutput = 'editable' | 'delete'
+
+export interface IFooter {
+  label?: string;
+  colspan: number;
+  format?: IFormat;
+  operation?: IOperation;
+}
+
+interface IOperation {
+  typeOperate: typeOperation
+  field?: string;
+  args?: string[];
+}
+
+export type typeOperation = 'sum' | 'multiply' | 'iva'
