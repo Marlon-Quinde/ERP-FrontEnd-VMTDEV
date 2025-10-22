@@ -26,7 +26,6 @@ export class ShopCard {
     let newItem: IShopCart = {
       ...item,
       cantidad: 1,
-      // total: item.prodUltPrecio
     };
     let newShopCart: IShopCart[] = [];
 
@@ -42,7 +41,6 @@ export class ShopCard {
         newShopCart.forEach((i) => {
           if (i.prodId == existeItem.prodId) {
             i.cantidad++
-            // i.total = i.cantidad * i.prodUltPrecio
           }
         });
       } else {

@@ -1,4 +1,9 @@
 <div class="tw:pt-4 tw:gap-4 tw:flex tw:flex-col">
   <app-custom-title title="Carrito de compras" />
-  <app-custom-table [data]="shopCart()" [columns]="columns" [colFooter]="footer" />
+  <app-custom-table
+    [data]="shopCart()"
+    [showGridlines]="true"
+    [columns]="columns"
+    [colFooter]="footer"
+  />
 </div>

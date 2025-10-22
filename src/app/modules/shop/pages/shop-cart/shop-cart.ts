@@ -12,109 +12,103 @@ import { IColumn, IFooter } from '../../../shared/interfaces/ICustomTable.interf
   selector: 'app-shop-cart',
   imports: [CustomTitle, CustomTable],
   templateUrl: './shop-cart.html',
-  styleUrl: './shop-cart.scss'
+  styleUrl: './shop-cart.scss',
 })
 export class ShopCart {
-
-  private readonly localStorage = inject(LocalStorageService)
-  private readonly _router = inject(Router)
-  public shopCart = signal<IShopCart[]>([])
+  private readonly localStorage = inject(LocalStorageService);
+  private readonly _router = inject(Router);
+  public shopCart = signal<IShopCart[]>([]);
 
   public columns: IColumn[] = [
-      {
-        header: 'ID',
+    {
+      header: 'ID',
+      field: 'prodId',
+    },
+    {
+      header: 'Nombre',
+      field: 'prodDescripcion',
+    },
+    {
+      header: 'Cantidad',
+      field: 'cantidad',
+    },
+    {
+      header: 'Precio X Unidad',
+      field: 'prodUltPrecio',
+      format: {
+        type: 'currency',
+      },
+    },
+    {
+      header: 'IVA',
+      field: 'prodUltPrecio',
+      format: {
+        type: 'currency',
+      },
+      operation: {
+        typeOperate: 'iva',
         field: 'prodId',
+        columns: ['cantidad', 'prodUltPrecio'],
       },
-      {
-        header: 'Nombre',
-        field: 'prodDescripcion',
+    },
+    {
+      header: 'SubTotal',
+      field: '',
+      format: {
+        type: 'currency',
       },
-      {
-        header: 'Cantidad',
+      operation: {
+        typeOperate: 'multiply',
+        field: 'prodId',
+        columns: ['cantidad', 'prodUltPrecio'],
+      },
+    },
+  ];
+
+  public footer: IFooter[] = [
+    {
+      colspan: 2,
+      label: 'Total a pagar',
+    },
+    {
+      colspan: 1,
+      operation: {
+        typeOperate: 'sum',
         field: 'cantidad',
       },
-      {
-        header: 'Precio X Unidad',
+    },
+    {
+      colspan: 1,
+      operation: {
+        typeOperate: 'sum',
         field: 'prodUltPrecio',
-        format: {
-          type: 'currency',
-        },
       },
-
-      {
-        header: 'Total',
+      format: {
+        type: 'currency',
+      },
+    },
+    {
+      colspan: 1,
+    },
+    {
+      colspan: 1,
+      operation: {
+        typeOperate: 'multipleOperation',
         field: '',
-        format: {
-          type: 'currency',
-        },
-        operation: {
-          typeOperate: 'multiply',
-          field: 'prodId',
-          args: ['cantidad','prodUltPrecio']
-        }
+        columns: ['cantidad', '*','prodUltPrecio' ],
       },
-      {
-        header: 'IVA',
-        field: 'prodUltPrecio',
-        format: {
-          type: 'currency',
-        },
-        operation: {
-          typeOperate: 'iva',
-          field: 'prodId',
-          args: ['cantidad','prodUltPrecio']
-        }
+      format: {
+        type: 'currency',
       },
-      {
-        header: 'Fecha Creación',
-        field: 'fechaHoraAct',
-        format: {
-          type: 'date',
-          params: 'yyyy-MM-dd',
-        },
-      },
-    ];
-
-    public footer: IFooter[] = [
-      {
-        colspan: 2,
-        label: 'Total a pagar'
-      },
-      {
-        colspan: 1,
-        operation: {
-          typeOperate: 'sum',
-          field: 'cantidad'
-        }
-      },
-      {
-        colspan: 1,
-        operation: {
-          typeOperate: 'sum',
-          field: 'prodUltPrecio'
-        },
-        format: {
-          type: 'currency',
-        },
-
-      },
-      {
-        colspan: 1
-      },
-      {
-        colspan: 1
-      },
-      {
-        colspan: 1
-      },
-    ]
+    },
+  ];
 
   ngOnInit(): void {
-    const shopCard = this.localStorage.getItem<IShopCart[]>(EnumKeys.SHOPCART)
-    if(shopCard?.length){
-      this.shopCart.set(shopCard)
+    const shopCard = this.localStorage.getItem<IShopCart[]>(EnumKeys.SHOPCART);
+    if (shopCard?.length) {
+      this.shopCart.set(shopCard);
     } else {
-      this._router.navigateByUrl(URL_ROUTES.CATALOG)
+      this._router.navigateByUrl(URL_ROUTES.CATALOG);
     }
   }
 }

@@ -27,10 +27,22 @@ export interface IFooter {
   operation?: IOperation;
 }
 
-interface IOperation {
+export interface IOperation {
   typeOperate: typeOperation
   field?: string;
-  args?: string[];
+  columns?: (string | number)[]
+  rows?: (string | number)[]
 }
 
-export type typeOperation = 'sum' | 'multiply' | 'iva'
+
+
+export type typeOperation = 'sum' | 'multiply' | 'iva' | 'multipleOperation'
+
+
+export interface IValues {
+  tag: string
+  value: any
+}
+
+
+export type typeOperationMultiple = 'sum' | 'multiply'
