@@ -19,7 +19,7 @@
                   <td>
                     @switch (column.format?.type) {
                       @case ('currency') {
-                        {{ ( column.operation?.typeOperate ? operationX(item[column.operation?.field!], column.operation ) : item[column.field] ) | currency }}
+                        {{ ( column.operation ? operationX( item, column.operation ) : item[column.field] ) | currency }}
                       }
                       @case ('date') {
                         {{ item[column.field] | date:column.format?.params }}
@@ -52,10 +52,10 @@
                    <td [attr.colspan]="col.colspan" class="text-right font-bold p-3 pb-0">
                       @switch (col.format?.type) {
                         @case ('currency') {
-                           {{ (col.operation?.typeOperate ? operationY(col.operation!) : col.label) | currency }}
+                           {{ (col.operation ? operationY(col.operation) : col.label) | currency }}
                         }
                         @default {
-                          {{ col.operation?.typeOperate ? operationY(col.operation!) : col.label }}
+                          {{ col.operation ? operationY(col.operation) : col.label }}
                         }
                       }
                   </td>

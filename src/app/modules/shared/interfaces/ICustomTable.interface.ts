@@ -28,15 +28,9 @@ export interface IFooter {
 }
 
 export interface IOperation {
-  typeOperate: typeOperation
-  field?: string;
   columns?: (string | number)[]
-  rows?: (string | number)[]
 }
 
-
-
-export type typeOperation = 'sum' | 'multiply' | 'iva' | 'multipleOperation'
 
 
 export interface IValues {
@@ -44,5 +38,3 @@ export interface IValues {
   value: any
 }
 
-
-export type typeOperationMultiple = 'sum' | 'multiply'

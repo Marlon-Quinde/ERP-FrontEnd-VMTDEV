@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { EnumKeys } from '../../../shared/enums/keys';
 import { URL_ROUTES } from '../../../shared/const/url-routes';
 import { IColumn, IFooter } from '../../../shared/interfaces/ICustomTable.interface';
+import { environments } from '../../../../environments/environments';
 
 @Component({
   selector: 'app-shop-cart',
@@ -40,48 +41,47 @@ export class ShopCart {
       },
     },
     {
-      header: 'IVA',
-      field: 'prodUltPrecio',
-      format: {
-        type: 'currency',
-      },
-      operation: {
-        typeOperate: 'iva',
-        field: 'prodId',
-        columns: ['cantidad', 'prodUltPrecio'],
-      },
-    },
-    {
-      header: 'SubTotal',
+      header: 'Subtotal',
       field: '',
       format: {
         type: 'currency',
       },
       operation: {
-        typeOperate: 'multiply',
-        field: 'prodId',
-        columns: ['cantidad', 'prodUltPrecio'],
+        columns: ['cantidad', '*', 'prodUltPrecio'],
+      },
+    },
+    {
+      header: `IVA %${environments.IVA}`,
+      field: '',
+      format: {
+        type: 'currency',
+      },
+      operation: {
+        columns: ['cantidad', '*', 'prodUltPrecio', '*', environments.IVA],
+      },
+    },
+
+    {
+      header: 'Total',
+      field: '',
+      format: {
+        type: 'currency',
+      },
+      operation: {
+        columns: ['cantidad', '*', 'prodUltPrecio', '*', (1 + environments.IVA)],
       },
     },
   ];
 
   public footer: IFooter[] = [
     {
-      colspan: 2,
+      colspan: 4,
       label: 'Total a pagar',
     },
     {
       colspan: 1,
       operation: {
-        typeOperate: 'sum',
-        field: 'cantidad',
-      },
-    },
-    {
-      colspan: 1,
-      operation: {
-        typeOperate: 'sum',
-        field: 'prodUltPrecio',
+        columns: ['cantidad', '*', 'prodUltPrecio'],
       },
       format: {
         type: 'currency',
@@ -89,13 +89,18 @@ export class ShopCart {
     },
     {
       colspan: 1,
+      operation: {
+        columns: ['cantidad', '*', 'prodUltPrecio', '*', environments.IVA],
+      },
+      format: {
+        type: 'currency',
+      },
     },
+
     {
       colspan: 1,
       operation: {
-        typeOperate: 'multipleOperation',
-        field: '',
-        columns: ['cantidad', '*','prodUltPrecio' ],
+        columns: ['cantidad', '*', 'prodUltPrecio', '*', (1 + environments.IVA)],
       },
       format: {
         type: 'currency',
